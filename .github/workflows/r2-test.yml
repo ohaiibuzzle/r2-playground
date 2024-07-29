@@ -1,0 +1,33 @@
+name: Upload to r2
+on: workflow_call
+  inputs:
+    unrelated_input:
+      type: string
+      description: Postfix used in release.
+      default: ''
+  secrets:
+    RCLONE_ACCESS_KEY_ID:
+      required: true
+    RCLONE_SECRET_ACCESS_KEY:
+      required: true
+    RCLONE_ENDPOINT:
+      required: true
+
+jobs:
+  test-upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Upload file to R2
+        id: image_r2_upload
+        env:
+          RCLONE_CONFIG_R2_TYPE: "s3"
+          RCLONE_CONFIG_R2_PROVIDER: "Cloudflare"
+          RCLONE_CONFIG_R2_ENV_AUTH: true
+          RCLONE_CONFIG_R2_ACCESS_KEY_ID: ${{ secrets.RCLONE_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_R2_SECRET_ACCESS_KEY: ${{ secrets.RCLONE_SECRET_ACCESS_KEY }}
+          RCLONE_CONFIG_R2_ENDPOINT: ${{ secrets.RCLONE_ENDPOINT }}
+          RCLONE_CONFIG_R2_NO_CHECK_BUCKET: true
+        run: |
+          sudo -v ; curl https://rclone.org/install.sh | sudo bash
+          touch ${{ inputs.postfix }}
+          rclone copy ${{ inputs.postfix }} r2:cachymera-os/
