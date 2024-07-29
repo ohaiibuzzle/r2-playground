@@ -31,5 +31,5 @@ jobs:
           RCLONE_CONFIG_R2_NO_CHECK_BUCKET: true
         run: |
           sudo -v ; curl https://rclone.org/install.sh | sudo bash
-          touch ${{ inputs.postfix }}
-          rclone copy ${{ inputs.postfix }} r2:cachymera-os/
+          touch ${{ inputs.unrelated_input }}
+          rclone copy ${{ inputs.unrelated_input }} r2:cachymera-os/
