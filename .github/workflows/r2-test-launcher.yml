@@ -1,6 +1,6 @@
 name: Test Launcher
 on:
-  workflow-dispatch:
+  workflow_dispatch:
 
 jobs:
   upload:
