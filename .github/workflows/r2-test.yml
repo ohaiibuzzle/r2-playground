@@ -1,17 +1,19 @@
 name: Upload to r2
-on: workflow_call
-  inputs:
-    unrelated_input:
-      type: string
-      description: Postfix used in release.
-      default: ''
-  secrets:
-    RCLONE_ACCESS_KEY_ID:
-      required: true
-    RCLONE_SECRET_ACCESS_KEY:
-      required: true
-    RCLONE_ENDPOINT:
-      required: true
+
+on: 
+  workflow_call:
+    inputs:
+      unrelated_input:
+        type: string
+        description: Postfix used in release.
+        default: ''
+    secrets:
+      RCLONE_ACCESS_KEY_ID:
+        required: true
+      RCLONE_SECRET_ACCESS_KEY:
+        required: true
+      RCLONE_ENDPOINT:
+        required: true
 
 jobs:
   test-upload:
